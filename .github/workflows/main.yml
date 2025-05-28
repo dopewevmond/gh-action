@@ -1,0 +1,22 @@
+name: Run on macOS self-hosted runner
+
+on:
+  push:
+    branches: [main, dev]
+
+jobs:
+  dev:
+    uses: ./.github/workflows/deploy.yml
+    if: github.ref == 'refs/heads/dev'
+    with:
+      runner_labels: '["self-hosted","macOS"]'
+      env: development
+    secrets: inherit
+
+  prod:
+    uses: ./.github/workflows/deploy.yml
+    if: github.ref == 'refs/heads/main'
+    with:
+      runner_labels: '["self-hosted","macOS"]'
+      env: production
+    secrets: inherit

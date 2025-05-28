@@ -30,5 +30,6 @@ const server = http.createServer((req, res) => {
 
 server.listen(port, hostname, () => {
   console.log(`App Name: ${appName}`)
+  console.log("I'm running on prod mode")
   console.log(`Running on http://${hostname}:${port}`)
 })

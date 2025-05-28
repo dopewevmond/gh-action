@@ -26,20 +26,22 @@ jobs:
 
       - name: Tear Down Containers
         env:
+          COMPOSE_PROJECT_NAME: ${{ inputs.env }}
           DOCKER_CONTAINER_NAME: ${{ secrets.DOCKER_CONTAINER_NAME }}
           NODE_ENV: ${{ secrets.NODE_ENV }}
           SERVER_PORT: ${{ secrets.SERVER_PORT }}
           APP_NAME: ${{ secrets.APP_NAME }}
           HOST_NAME: ${{ secrets.HOST_NAME }}
         run: |
-            docker compose down
+            docker compose -p $COMPOSE_PROJECT_NAME down
 
       - name: Deploy with Docker Compose
         env:
+          COMPOSE_PROJECT_NAME: ${{ inputs.env }}
           DOCKER_CONTAINER_NAME: ${{ secrets.DOCKER_CONTAINER_NAME }}
           NODE_ENV: ${{ secrets.NODE_ENV }}
           SERVER_PORT: ${{ secrets.SERVER_PORT }}
           APP_NAME: ${{ secrets.APP_NAME }}
           HOST_NAME: ${{ secrets.HOST_NAME }}
         run: |
-            docker compose up --build -d
+            docker compose -p $COMPOSE_PROJECT_NAME up --build -d
